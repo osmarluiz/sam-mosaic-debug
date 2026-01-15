@@ -13,35 +13,54 @@ Curiosamente, chamar `build_sam2()` diretamente funciona no PC2.
 
 | Item | Valor |
 |------|-------|
-| GPU | NVIDIA GeForce RTX 4090 24GB |
-| Driver NVIDIA | 560.94 |
-| PyTorch | 2.6.0+cu124 |
-| CUDA | 12.4 |
-| cuDNN | 90100 |
-| SAM2 | 1.1.0 |
-| OS | Windows 11 Pro (26200.0) |
-| Resultado | CLI funciona, 18 min para 10k×10k |
+| **CPU** | Intel Core i9-14900K |
+| **RAM** | 128 GB DDR4 2667 MHz (4x 32GB A-DATA) |
+| **Motherboard** | MSI PRO B760M-P DDR4 |
+| **GPU** | NVIDIA GeForce RTX 4090 24GB |
+| **Driver NVIDIA** | 560.94 |
+| **CUDA** | 12.6 |
+| **PyTorch** | 2.6.0+cu124 |
+| **cuDNN** | 90100 |
+| **SAM2** | 1.1.0 |
+| **OS** | Windows 11 Pro (26200.0) |
+| **Resultado** | CLI funciona, 18 min para 10k×10k |
 
 ### PC2 (Trava)
 
 | Item | Valor |
 |------|-------|
-| GPU | (preencher) |
-| Driver NVIDIA | (preencher) |
-| PyTorch | (preencher) |
-| CUDA | (preencher) |
-| cuDNN | (preencher) |
-| SAM2 | (preencher) |
-| OS | (preencher) |
-| Resultado | CLI trava no load do modelo |
+| **CPU** | (preencher) |
+| **RAM** | (preencher) |
+| **Motherboard** | (preencher) |
+| **GPU** | (preencher) |
+| **Driver NVIDIA** | (preencher) |
+| **CUDA** | (preencher) |
+| **PyTorch** | (preencher) |
+| **cuDNN** | (preencher) |
+| **SAM2** | (preencher) |
+| **OS** | (preencher) |
+| **Resultado** | CLI trava no load do modelo |
 
-**Comandos para obter configuração:**
+**Comandos para obter configuração (rodar no PowerShell):**
 ```powershell
+# Hardware
+(Get-WmiObject Win32_Processor).Name
+[math]::Round((Get-WmiObject Win32_ComputerSystem).TotalPhysicalMemory / 1GB)
+Get-WmiObject Win32_PhysicalMemory | Select-Object Capacity, Speed, Manufacturer
+Get-WmiObject Win32_BaseBoard | Select-Object Manufacturer, Product
+
+# GPU
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv
+nvidia-smi -q | Select-String 'CUDA Version'
+
+# Software
 conda activate ts_annotator
 python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA: {torch.version.cuda}'); print(f'cuDNN: {torch.backends.cudnn.version()}')"
 pip show sam2 | Select-String 'Version'
+
+# OS
 [System.Environment]::OSVersion
+(Get-WmiObject Win32_OperatingSystem).Caption
 ```
 
 ---
