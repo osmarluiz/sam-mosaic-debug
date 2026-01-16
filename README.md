@@ -29,17 +29,27 @@ Curiosamente, chamar `build_sam2()` diretamente funciona no PC2.
 
 | Item | Valor |
 |------|-------|
-| **CPU** | (preencher) |
-| **RAM** | (preencher) |
-| **Motherboard** | (preencher) |
-| **GPU** | (preencher) |
-| **Driver NVIDIA** | (preencher) |
-| **CUDA** | (preencher) |
-| **PyTorch** | (preencher) |
-| **cuDNN** | (preencher) |
-| **SAM2** | (preencher) |
-| **OS** | (preencher) |
+| **CPU** | Intel Core i9-14900KF |
+| **RAM** | 128 GB |
+| **Motherboard** | (não informado) |
+| **GPU** | NVIDIA GeForce RTX 4090 24GB |
+| **Driver NVIDIA** | 560.94 |
+| **CUDA** | 12.6 (sistema) / 12.4 (PyTorch) |
+| **PyTorch** | 2.6.0+cu124 |
+| **cuDNN** | (verificar) |
+| **SAM2** | (verificar) |
+| **OS** | **Windows 10 Pro** (Build 26200) |
+| **Conda env** | sam_mosaic |
 | **Resultado** | CLI trava no load do modelo |
+
+### Diferenças Identificadas
+
+| Item | PC1 | PC2 | Crítico? |
+|------|-----|-----|----------|
+| **OS** | Windows 11 Pro | Windows 10 Pro | ⚠️ POSSÍVEL |
+| CPU | i9-14900K | i9-14900KF | Não (F = sem iGPU) |
+| Conda env | ts_annotator | sam_mosaic | ⚠️ Ambiente diferente |
+| Python | 3.11.14 | 3.11.7 | Possível |
 
 **Comandos para obter configuração (rodar no PowerShell):**
 ```powershell
